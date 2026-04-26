@@ -96,7 +96,7 @@ graph TD
 
 ## Entregables Multimedia
 
-- **Demo en vivo:** [https://demo-pied-nu-45.vercel.app/]
+- **Demo en Vercel:** [https://demo-pied-nu-45.vercel.app/]
 - **Video Demo (2 min):** *[https://drive.google.com/drive/folders/1tJLrZvyAJbFwxhD4Frrbn2mf56BnUA6P?usp=sharing]*
 - **Materiales de Diseño:** El diseño fue iterado directamente en el prototipo usando Google AI Studio para agilizar la implementación funcional.
 
