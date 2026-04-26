@@ -97,7 +97,7 @@ graph TD
 ## Entregables Multimedia
 
 - **Demo en vivo:** [https://demo-pied-nu-45.vercel.app/]
-- **Video Demo (2 min):** *[Insertar link de YouTube/Drive aquí]*
+- **Video Demo (2 min):** *[https://drive.google.com/drive/folders/1tJLrZvyAJbFwxhD4Frrbn2mf56BnUA6P?usp=sharing]*
 - **Materiales de Diseño:** El diseño fue iterado directamente en el prototipo usando Google AI Studio para agilizar la implementación funcional.
 
 ## Roadmap / Evolución Planeada
@@ -125,4 +125,3 @@ Para la implementación real con el capital semilla, el equipo ha definido los s
 
 ---
 *Este proyecto es una demostración funcional de una plataforma de seguridad digital avanzada para la Hackathon.*
-tal avanzada para la Hackathon.*
