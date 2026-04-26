@@ -21,7 +21,18 @@ En la actualidad, los menores están expuestos a riesgos crecientes en internet 
 Siguiendo las normas del **Hackathon 404: Threat Not Found**, documentamos el uso de herramientas de IA durante el proceso:
 
 1.  **En la solución (Producto):**
-    - **Google Gemini AI (Modelo Flash/Pro):** Integrado en el servicio `aiService.ts` para el análisis semántico de riesgos en tiempo real (detección de grooming, toxicidad y estafas).
+    El proyecto Guardian es una plataforma de seguridad infantil que utiliza una arquitectura de microservicios de IA para detectar contenido peligroso en tiempo real. Utiliza un enfoque híbrido que combina modelos de lenguaje (LLMs), visión artificial (Computer Vision) y reglas de contexto.
+
+    **Desglose de modelos y funciones:**
+    - **Clasificación de Texto (Zero-Shot):** `facebook/bart-large-mnli`. Analiza mensajes para identificar riesgos como contenido sexual, toxicidad, grooming o reclutamiento.
+    - **Análisis Semántico:** `paraphrase-multilingual-MiniLM-L12-v2`. Detecta patrones de acoso comparando significados semánticos y jerga con bases de datos de frases peligrosas.
+    - **Detección de Objetos:** `MobileNetV2` (ImageNet). Escanea imágenes en busca de armas o parafernalia de drogas.
+    - **Clasificación NSFW:** `Falconsai/nsfw_image_detection` (Vision Transformer). Filtro especializado para bloquear contenido sexualmente explícito.
+    - **Reconocimiento Óptico (OCR):** `EasyOCR`. Extrae texto de memes, capturas o stickers para su posterior análisis con los modelos de texto.
+    - **Motor de Contexto:** Lógica híbrida para desambiguar jerga cultural (ej. narcocultura) y evitar falsos positivos.
+
+    **Flujo de Veredicto (Risk Aggregator):**
+    Cuando se procesa contenido, los modelos trabajan en paralelo: EasyOCR extrae texto, BART/MiniLM analizan la semántica, y MobileNetV2/NSFW ViT evalúan la imagen. El agregador consolida los resultados para emitir un veredicto: **SAFE**, **WARNING** o **BLOCKED**.
 2.  **En el desarrollo (Productividad):**
     - **Claude Code & Gemini:** Utilizados para la generación de la estructura lógica, componentes de React y funciones de manejo de estado.
     - **Google AI Studio:** Utilizado para el prototipado rápido de prompts y el diseño conceptual de la interfaz de usuario.
@@ -38,13 +49,15 @@ Siguiendo las normas del **Hackathon 404: Threat Not Found**, documentamos el us
 ```mermaid
 graph TD
     A[Usuario: Menor] -->|Interactúa| B(Minor Dashboard)
-    B -->|Eventos/Chat| C[AI Service - Gemini]
-    C -->|Análisis de Riesgo| D{Nivel de Alerta}
-    D -->|Bajo| E[Recompensas / Gamificación]
-    D -->|Alto| F[Tutor Dashboard - Alerta Realtime]
-    F -->|Reporte Oficial| G[Authority Dashboard]
-    H[Store - Zustand] -->|Sincroniza| B
-    H -->|Sincroniza| F
+    B -->|Data Stream| C[AI Service - Gemini]
+    C -->|Análisis de Riesgo| H[Store - Zustand]
+    H <--> B
+    H <--> F[Tutor Dashboard]
+    H <--> G[Authority Dashboard]
+    H -->|Nivel de Alerta| D{Resolución}
+    D -->|Bajo/Safe| E[Puntos / Recompensas]
+    D -->|Alto/Warning| F
+    D -->|Crítico/Threat| G
 ```
 
 ## Instrucciones para ejecutar el prototipo
@@ -81,7 +94,7 @@ Para la implementación real con el capital semilla, el equipo ha definido los s
     - Ampliación del catálogo de premios incluyendo **skins exclusivas** para juegos populares (Roblox, Fortnite, Minecraft) y **cupones de descuento** en plataformas educativas y de entretenimiento.
 5.  **Expansión de Plataformas:**
  Extender la protección de Guardian a ecosistemas adicionales como **YouTube**.
-5.  **Integración Avanzada con TikTok:** Desarrollo de herramientas especializadas para el análisis profundo de tendencias y datos de TikTok, permitiendo identificar patrones de contacto sospechosos antes de que escalen.
+6.  **Integración Avanzada con TikTok:** Desarrollo de herramientas especializadas para el análisis profundo de tendencias y datos de TikTok, permitiendo identificar patrones de contacto sospechosos antes de que escalen.
 
 ## Integrantes del equipo (Orden Alfabético)
 
