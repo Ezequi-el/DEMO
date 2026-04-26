@@ -36,6 +36,7 @@ Siguiendo las normas del **Hackathon 404: Threat Not Found**, documentamos el us
 2.  **En el desarrollo (Productividad):**
     - **Claude Code & Gemini:** Utilizados para la generación de la estructura lógica, componentes de React y funciones de manejo de estado.
     - **Google AI Studio:** Utilizado para el prototipado rápido de prompts y el diseño conceptual de la interfaz de usuario.
+    - **Veo:** Utilizado para la generación de un video en el demo.
     - **Medida:** La lógica de negocio, la arquitectura del estado global con Zustand y la integración de servicios fueron supervisadas y ensambladas por el equipo para garantizar la viabilidad técnica y originalidad.
 
 ## Desarrollo y Originalidad
@@ -97,7 +98,7 @@ graph TD
 ## Entregables Multimedia
 
 - **Demo en Vercel:** [https://demo-pied-nu-45.vercel.app/]
-- **Video Demo (2 min):** *[https://drive.google.com/drive/folders/1tJLrZvyAJbFwxhD4Frrbn2mf56BnUA6P?usp=sharing]*
+- **Video Demo (2 min):** *[https://youtu.be/PgDXAhxWpFQ]*
 - **Materiales de Diseño:** El diseño fue iterado directamente en el prototipo usando Google AI Studio para agilizar la implementación funcional.
 
 ## Roadmap / Evolución Planeada
