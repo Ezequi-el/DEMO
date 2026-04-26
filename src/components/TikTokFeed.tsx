@@ -8,11 +8,16 @@ import {
   Heart,
   MessageCircle,
   Share2,
-  Lock
+  Lock,
+  User
 } from 'lucide-react';
 import { analyzeVideoUrl, AnalysisResult } from '../services/aiService';
 
 const VIDEO_IDS = [
+  '7631052154580602142',
+  '7622846264975101198',
+  '7613872806232739080',
+  '7602075380316392712',
   '7632538705583934734',
   '7626911009302760711',
   '7632690576097430804'
@@ -39,43 +44,48 @@ const TikTokVideo: React.FC<TikTokVideoProps> = ({ videoId, isActive }) => {
   }, [isActive, videoId]);
 
   return (
-    <div className="relative w-full h-screen snap-start bg-black flex items-center justify-center overflow-hidden">
+    <div className="relative w-full h-[100dvh] snap-start bg-black flex items-center justify-center overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/60 z-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80 z-10 pointer-events-none" />
       
-      {/* Video Iframe - TikTok Embed */}
-      <iframe
-        src={`https://www.tiktok.com/embed/v2/${videoId}`}
-        className="w-full h-full max-w-[450px]"
-        allow="autoplay; encrypted-media"
-        title={`TikTok video ${videoId}`}
-        style={{ border: 'none' }}
-      />
+      {/* Video Iframe - TikTok Embed: Full Screen Experience */}
+      <div className="absolute inset-0 w-full h-full flex items-center justify-center bg-black">
+        <iframe
+          src={`https://www.tiktok.com/embed/v2/${videoId}`}
+          className="w-full h-full"
+          allow="autoplay; encrypted-media"
+          title={`TikTok video ${videoId}`}
+          style={{ border: 'none' }}
+          scrolling="no"
+        />
+      </div>
 
-      {/* AI Analysis Overlay (Safe/Warning) */}
+      {/* AI Analysis Overlay (Safe/Warning) - Adjusted for mobile position */}
       <AnimatePresence>
         {!isLoading && analysis && analysis.status !== 'blocked' && (
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="absolute bottom-20 left-4 z-20 flex flex-col gap-2 max-w-[80%]"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="absolute bottom-24 left-4 right-16 z-20 flex flex-col gap-2"
           >
-            <div className={`px-3 py-1.5 rounded-full flex items-center gap-2 text-sm font-medium backdrop-blur-md border ${
+            <div className={`w-fit px-3 py-1.5 rounded-full flex items-center gap-2 text-[11px] font-black uppercase tracking-wider backdrop-blur-xl border ${
               analysis.status === 'safe' 
                 ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' 
                 : 'bg-amber-500/20 text-amber-400 border-amber-500/30'
             }`}>
-              {analysis.status === 'safe' ? <CheckCircle2 size={16} /> : <AlertTriangle size={16} />}
-              {analysis.status === 'safe' ? 'Video Seguro' : 'Video Neutral'}
+              {analysis.status === 'safe' ? <CheckCircle2 size={14} strokeWidth={3} /> : <AlertTriangle size={14} strokeWidth={3} />}
+              <span>{analysis.status === 'safe' ? 'Sincronización IA: Seguro' : 'Analizado: Neutral'}</span>
             </div>
-            <p className="text-white text-xs opacity-80 bg-black/40 p-2 rounded-lg backdrop-blur-sm">
-              {analysis.message}
-            </p>
+            <div className="bg-black/40 backdrop-blur-md p-3 rounded-2xl border border-white/5 shadow-2xl">
+              <p className="text-white text-[10px] font-medium leading-relaxed opacity-90 italic">
+                "{analysis.message}"
+              </p>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Security Block Banner */}
+      {/* Security Block Banner - Mobile Ready */}
       <AnimatePresence>
         {analysis?.status === 'blocked' && (
           <motion.div 
@@ -83,38 +93,44 @@ const TikTokVideo: React.FC<TikTokVideoProps> = ({ videoId, isActive }) => {
             animate={{ opacity: 1 }}
             className="absolute inset-0 z-50 bg-stone-900 flex flex-col items-center justify-center p-8 text-center"
           >
-            <div className="w-20 h-20 bg-red-500/20 rounded-full flex items-center justify-center mb-6 border border-red-500/50">
+            <div className="w-20 h-20 bg-red-500/20 rounded-[2rem] flex items-center justify-center mb-6 border border-red-500/30 shadow-[0_0_40px_rgba(239,68,68,0.2)]">
               <ShieldAlert className="text-red-500" size={40} />
             </div>
-            <h2 className="text-2xl font-bold text-white mb-2">Contenido Bloqueado</h2>
-            <p className="text-stone-400 mb-8 max-w-xs">
-              Este video ha sido bloqueado por el sistema de seguridad de IA para proteger tu bienestar.
+            <h2 className="text-2xl font-black text-white mb-2 uppercase tracking-tight italic">Contenido Bloqueado</h2>
+            <p className="text-stone-400 text-sm mb-8 max-w-xs font-medium">
+              Este video ha sido restringido por el protocolo de seguridad infantil GUARDIAN.
             </p>
-            <div className="bg-red-500/10 border border-red-500/20 p-4 rounded-xl mb-8 w-full max-w-xs">
-              <div className="flex items-center gap-2 text-red-400 font-semibold mb-1 text-sm">
-                <Lock size={14} /> Motivo de Seguridad
+            <div className="bg-red-500/5 border border-red-500/20 p-5 rounded-3xl mb-8 w-full max-w-xs">
+              <div className="flex items-center justify-center gap-2 text-red-400 font-black mb-2 text-[10px] uppercase tracking-widest">
+                <Lock size={14} /> Reporte de Seguridad IA
               </div>
-              <p className="text-xs text-red-300/80">
-                {analysis.message}
+              <p className="text-xs text-red-200/70 italic leading-relaxed">
+                "{analysis.message}"
               </p>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Side Actions (Visual only for TikTok feel) */}
-      <div className="absolute right-4 bottom-32 z-20 flex flex-col gap-6">
-        <div className="flex flex-col items-center gap-1">
-          <div className="p-3 bg-white/10 rounded-full backdrop-blur-md"><Heart className="text-white" size={24} /></div>
-          <span className="text-white text-xs font-medium">1.2k</span>
+      {/* Side Actions - Adjusted for mobile visibility */}
+      <div className="absolute right-3 bottom-24 z-20 flex flex-col gap-5">
+        <div className="flex flex-col items-center gap-1 group">
+          <div className="p-3 bg-white/10 rounded-full backdrop-blur-xl border border-white/10 group-active:scale-90 transition-transform">
+            <Heart className="text-white fill-white/10" size={22} />
+          </div>
+          <span className="text-white text-[10px] font-black">1.2k</span>
         </div>
         <div className="flex flex-col items-center gap-1">
-          <div className="p-3 bg-white/10 rounded-full backdrop-blur-md"><MessageCircle className="text-white" size={24} /></div>
-          <span className="text-white text-xs font-medium">85</span>
+          <div className="p-3 bg-white/10 rounded-full backdrop-blur-xl border border-white/10">
+            <MessageCircle className="text-white" size={22} />
+          </div>
+          <span className="text-white text-[10px] font-black">85</span>
         </div>
         <div className="flex flex-col items-center gap-1">
-          <div className="p-3 bg-white/10 rounded-full backdrop-blur-md"><Share2 className="text-white" size={24} /></div>
-          <span className="text-white text-xs font-medium">Share</span>
+          <div className="p-3 bg-white/10 rounded-full backdrop-blur-xl border border-white/10">
+            <Share2 className="text-white" size={22} />
+          </div>
+          <span className="text-white text-[10px] font-black uppercase tracking-tighter">Share</span>
         </div>
       </div>
     </div>
@@ -123,14 +139,30 @@ const TikTokVideo: React.FC<TikTokVideoProps> = ({ videoId, isActive }) => {
 
 export default function TikTokFeed({ onBack }: { onBack: () => void }) {
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+  
+  // Función para desordenar el array (Fisher-Yates shuffle)
+  const shuffleArray = (array: string[]) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  const [items, setItems] = useState(() => [...shuffleArray(VIDEO_IDS), ...shuffleArray(VIDEO_IDS)]);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleScroll = () => {
     if (containerRef.current) {
-      const scrollPos = containerRef.current.scrollTop;
-      const windowHeight = window.innerHeight;
-      const index = Math.round(scrollPos / windowHeight);
+      const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
+      const index = Math.round(scrollTop / clientHeight);
       setActiveVideoIndex(index);
+
+      // Si estamos cerca del final (a 2 videos de distancia), añadimos más aleatoriamente
+      if (scrollTop + clientHeight >= scrollHeight - clientHeight * 2) {
+        setItems(prev => [...prev, ...shuffleArray(VIDEO_IDS)]);
+      }
     }
   };
 
@@ -152,9 +184,6 @@ export default function TikTokFeed({ onBack }: { onBack: () => void }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Infinite scroll simulation: duplicate items
-  const displayItems = [...VIDEO_IDS, ...VIDEO_IDS, ...VIDEO_IDS];
-
   return (
     <div className="fixed inset-0 z-[100] bg-black">
       {/* Header */}
@@ -165,12 +194,12 @@ export default function TikTokFeed({ onBack }: { onBack: () => void }) {
         >
           <ArrowLeft size={24} />
         </button>
-        <div className="flex gap-4 text-white font-bold">
-          <span className="opacity-60">Following</span>
-          <span className="border-b-2 border-white pb-1">For You</span>
+        <div className="flex gap-4 text-white font-black text-sm uppercase tracking-widest">
+          <span className="opacity-40">Siguiendo</span>
+          <span className="border-b-2 border-white pb-1">Para ti</span>
         </div>
-        <div className="w-10 h-10 rounded-full bg-stone-800 border border-white/10 overflow-hidden">
-          <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=user" alt="profile" />
+        <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center">
+          <User size={20} className="text-white" />
         </div>
       </div>
 
@@ -181,7 +210,7 @@ export default function TikTokFeed({ onBack }: { onBack: () => void }) {
         className="h-full w-full overflow-y-scroll snap-y snap-mandatory hide-scrollbar"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
-        {displayItems.map((id, index) => (
+        {items.map((id, index) => (
           <TikTokVideo 
             key={`${id}-${index}`} 
             videoId={id} 

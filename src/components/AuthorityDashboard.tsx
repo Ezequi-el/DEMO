@@ -251,29 +251,29 @@ export default function AuthorityDashboard() {
   const renderDashboard = () => (
     <>
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-8 lg:mb-12">
         {[
           { label: 'Cuentas Activas', val: '12,402', color: 'text-auth-primary', sub: 'Matrícula Global' },
           { label: 'Alertas Críticas', val: '04', color: 'text-red-600', sub: '+2% vs ayer' },
           { label: 'Eficacia IA', val: '98.2%', color: 'text-emerald-600', sub: 'Modelo V1.2' },
           { label: 'Latencia Seg.', val: '140ms', color: 'text-indigo-600', sub: 'Tiempo real' },
         ].map((stat, i) => (
-          <div key={i} className="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:border-auth-primary/20 transition-all">
+          <div key={i} className="bg-white p-6 lg:p-8 rounded-3xl shadow-sm border border-slate-200 hover:border-auth-primary/20 transition-all">
             <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block mb-2">{stat.label}</span>
-            <span className={`text-4xl font-black font-display ${stat.color} block mb-1`}>{stat.val}</span>
-            <span className="text-xs text-slate-400 font-medium italic">{stat.sub}</span>
+            <span className={`text-3xl lg:text-4xl font-black font-display ${stat.color} block mb-1`}>{stat.val}</span>
+            <span className="text-[10px] lg:text-xs text-slate-400 font-medium italic">{stat.sub}</span>
           </div>
         ))}
       </div>
 
       {/* Incident Table */}
       <section className="bg-white rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-200 overflow-hidden">
-        <div className="p-8 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-          <h2 className="text-2xl font-black font-display text-auth-primary">Threat Analytics</h2>
-          <div className="relative">
+        <div className="p-6 lg:p-8 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-50/50">
+          <h2 className="text-xl lg:text-2xl font-black font-display text-auth-primary">Threat Analytics</h2>
+          <div className="relative w-full sm:w-auto">
             <button 
               onClick={() => setExportOpen(!exportOpen)}
-              className="px-6 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-slate-800 transition-all flex items-center space-x-2"
+              className="w-full sm:w-auto px-6 py-2.5 bg-slate-900 text-white rounded-xl text-[10px] lg:text-xs font-black uppercase tracking-widest hover:bg-slate-800 transition-all flex justify-center items-center space-x-2"
             >
               <span>Exportar Reporte</span>
               <ChevronDown className={`w-4 h-4 transition-transform ${exportOpen ? 'rotate-180' : ''}`} />
@@ -284,7 +284,7 @@ export default function AuthorityDashboard() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
-                  className="absolute right-0 mt-2 w-48 bg-white border border-slate-200 rounded-2xl shadow-2xl z-50 overflow-hidden"
+                  className="absolute right-0 mt-2 w-full sm:w-48 bg-white border border-slate-200 rounded-2xl shadow-2xl z-50 overflow-hidden"
                 >
                   <button className="flex items-center space-x-3 w-full p-4 hover:bg-slate-50 transition-colors border-b border-slate-100">
                     <FileJson className="w-4 h-4 text-slate-400" />
@@ -301,43 +301,43 @@ export default function AuthorityDashboard() {
         </div>
         
         <div className="overflow-x-auto">
-          <table className="w-full text-left">
+          <table className="w-full text-left min-w-[600px] lg:min-w-full">
             <thead>
               <tr className="bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-[0.15em]">
-                <th className="px-8 py-6">Incident Hash</th>
-                <th className="px-8 py-6">Type</th>
-                <th className="px-8 py-6">Risk Index</th>
-                <th className="px-8 py-6">Source Vector</th>
-                <th className="px-8 py-6">Protocol</th>
-                <th className="px-8 py-6">Delta Time</th>
+                <th className="px-6 lg:px-8 py-5 lg:py-6">Incident Hash</th>
+                <th className="px-6 lg:px-8 py-5 lg:py-6">Type</th>
+                <th className="px-6 lg:px-8 py-5 lg:py-6">Risk Index</th>
+                <th className="px-6 lg:px-8 py-5 lg:py-6">Source Vector</th>
+                <th className="px-6 lg:px-8 py-5 lg:py-6">Protocol</th>
+                <th className="px-6 lg:px-8 py-5 lg:py-6">Delta Time</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {securityIncidents.map((incident) => (
                 <tr key={incident.id} className="hover:bg-slate-50 transition-colors group">
-                  <td className="px-8 py-6 text-xs font-mono text-slate-400 group-hover:text-slate-900 transition-colors">0x{incident.id}...8f2c</td>
-                  <td className="px-8 py-6 text-sm font-black text-slate-800">{incident.type}</td>
-                  <td className="px-8 py-6">
-                     <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-tighter ${
+                  <td className="px-6 lg:px-8 py-5 lg:py-6 text-[10px] lg:text-xs font-mono text-slate-400 group-hover:text-slate-900 transition-colors">0x{incident.id}...8f2c</td>
+                  <td className="px-6 lg:px-8 py-5 lg:py-6 text-xs lg:text-sm font-black text-slate-800">{incident.type}</td>
+                  <td className="px-6 lg:px-8 py-5 lg:py-6">
+                     <span className={`px-3 lg:px-4 py-1.5 rounded-full text-[9px] lg:text-[10px] font-black uppercase tracking-tighter ${
                        incident.risk === 'Critical' ? 'bg-red-50 text-red-600 border border-red-100' : 
                        incident.risk === 'High' ? 'bg-orange-50 text-orange-600 border border-orange-100' : 'bg-indigo-50 text-indigo-600 border border-indigo-100'
                      }`}>
                        {incident.risk}
                      </span>
                   </td>
-                  <td className="px-8 py-6">
-                    <div className="flex items-center space-x-2 text-xs font-bold text-slate-500 uppercase">
-                      <Globe className="w-3.5 h-3.5 text-slate-300" />
+                  <td className="px-6 lg:px-8 py-5 lg:py-6">
+                    <div className="flex items-center space-x-2 text-[10px] lg:text-xs font-bold text-slate-500 uppercase">
+                      <Globe className="w-3 h-3 lg:w-3.5 lg:h-3.5 text-slate-300" />
                       <span>{incident.source}</span>
                     </div>
                   </td>
-                  <td className="px-8 py-6">
+                  <td className="px-6 lg:px-8 py-5 lg:py-6">
                     <div className="flex items-center space-x-2">
                        <div className={`w-2 h-2 rounded-full ${incident.status === 'Blocked' ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-amber-500 animate-pulse'}`} />
-                       <span className="text-xs font-black text-slate-700 uppercase tracking-tight">{incident.status}</span>
+                       <span className="text-[10px] lg:text-xs font-black text-slate-700 uppercase tracking-tight">{incident.status}</span>
                     </div>
                   </td>
-                  <td className="px-8 py-6 text-xs font-bold text-slate-400 italic">
+                  <td className="px-6 lg:px-8 py-5 lg:py-6 text-[10px] lg:text-xs font-bold text-slate-400 italic">
                     {incident.time}
                   </td>
                 </tr>
@@ -350,11 +350,11 @@ export default function AuthorityDashboard() {
   );
 
   const renderMonitor = () => (
-    <div className="space-y-8">
-      <div className="bg-white rounded-[2rem] p-8 border border-slate-200 shadow-sm relative overflow-hidden min-h-[600px] flex flex-col">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-black font-display text-auth-primary">Geo-localización de Amenazas</h2>
-          <div className="bg-slate-100 p-1.5 rounded-[1.5rem] flex flex-wrap items-center gap-2">
+    <div className="space-y-6 lg:space-y-8">
+      <div className="bg-white rounded-[2rem] p-5 lg:p-8 border border-slate-200 shadow-sm relative overflow-hidden min-h-[500px] lg:min-h-[600px] flex flex-col">
+        <div className="flex flex-col space-y-4 mb-6">
+          <h2 className="text-xl lg:text-2xl font-black font-display text-auth-primary">Geo-localización de Amenazas</h2>
+          <div className="bg-slate-100 p-1.5 rounded-2xl lg:rounded-[1.5rem] flex flex-wrap items-center gap-2">
             {[
               { label: 'CDS (Mayiza)', color: 'bg-red-500' },
               { label: 'CJNG (4 Letras)', color: 'bg-blue-500' },
@@ -364,13 +364,12 @@ export default function AuthorityDashboard() {
               <button 
                 key={item.label}
                 onClick={() => setShowCriminalCriteria(showCriminalCriteria === item.label ? null : item.label)}
-                className={`flex items-center space-x-2 px-3 py-2 rounded-xl shadow-sm hover:shadow-md hover:scale-105 transition-all border group ${
+                className={`flex items-center space-x-2 px-3 py-2 rounded-xl shadow-sm hover:shadow-md transition-all border group ${
                   showCriminalCriteria === item.label ? 'bg-slate-900 border-slate-900 text-white' : 'bg-white border-slate-200'
                 }`}
               >
-                <div className={`w-3 h-3 rounded-full ${item.color} group-hover:animate-pulse`} />
-                <span className={`text-[10px] font-black uppercase tracking-tight ${showCriminalCriteria === item.label ? 'text-white' : 'text-slate-700'}`}>{item.label}</span>
-                <ChevronRight className={`w-3 h-3 ${showCriminalCriteria === item.label ? 'text-white/50' : 'text-slate-300'}`} />
+                <div className={`w-2.5 h-2.5 rounded-full ${item.color} group-hover:animate-pulse`} />
+                <span className={`text-[9px] lg:text-[10px] font-black uppercase tracking-tight ${showCriminalCriteria === item.label ? 'text-white' : 'text-slate-700'}`}>{item.label}</span>
               </button>
             ))}
           </div>
@@ -440,55 +439,55 @@ export default function AuthorityDashboard() {
   );
 
   const renderAI = () => (
-    <div className="max-w-4xl space-y-8">
-      <div className="bg-white rounded-[2rem] p-10 border border-slate-200 shadow-sm">
-        <div className="flex items-center space-x-6 mb-10">
-          <div className="w-20 h-20 bg-indigo-600 rounded-[2rem] flex items-center justify-center shadow-xl shadow-indigo-200">
-             <Cpu className="w-10 h-10 text-white" />
+    <div className="max-w-4xl space-y-6 lg:space-y-8">
+      <div className="bg-white rounded-[2rem] p-6 lg:p-10 border border-slate-200 shadow-sm">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left space-y-4 sm:space-y-0 sm:space-x-6 mb-8 lg:mb-10">
+          <div className="w-16 h-16 lg:w-20 lg:h-20 bg-indigo-600 rounded-2xl lg:rounded-[2rem] flex items-center justify-center shadow-xl shadow-indigo-200 shrink-0">
+             <Cpu className="w-8 h-8 lg:w-10 lg:h-10 text-white" />
           </div>
           <div>
-            <h2 className="text-3xl font-black font-display text-auth-primary">Motores de Inteligencia Artificial</h2>
-            <p className="text-slate-500 font-medium">Núcleo de análisis y detección de amenazas en tiempo real</p>
+            <h2 className="text-2xl lg:text-3xl font-black font-display text-auth-primary leading-tight">Motores de Inteligencia Artificial</h2>
+            <p className="text-slate-500 text-sm lg:text-base font-medium mt-1">Núcleo de análisis y detección de amenazas en tiempo real</p>
           </div>
         </div>
 
-        <div className="space-y-6">
-           <div className="p-8 bg-slate-50 rounded-3xl border border-slate-100 flex items-start space-x-6">
+        <div className="space-y-4 lg:space-y-6">
+           <div className="p-6 lg:p-8 bg-slate-50 rounded-3xl border border-slate-100 flex flex-col lg:flex-row items-start space-y-6 lg:space-y-0 lg:space-x-6">
               <div className="bg-white p-3 rounded-2xl shadow-sm border border-slate-200">
                 <Database className="w-6 h-6 text-indigo-500" />
               </div>
-              <div className="flex-1">
+              <div className="flex-1 w-full">
                  <div className="flex justify-between items-center mb-2">
-                    <h3 className="font-black text-xl text-slate-800">Gemini 1.5 Flash</h3>
-                    <span className="bg-emerald-100 text-emerald-600 text-[10px] font-black px-3 py-1 rounded-full uppercase">Activo</span>
+                    <h3 className="font-black text-lg lg:text-xl text-slate-800">Gemini 1.5 Flash</h3>
+                    <span className="bg-emerald-100 text-emerald-600 text-[9px] lg:text-[10px] font-black px-3 py-1 rounded-full uppercase">Activo</span>
                  </div>
-                 <p className="text-slate-600 text-sm mb-4">Motor principal de procesamiento de lenguaje natural y visión computacional. Optimizado para baja latencia (Flash) sin sacrificar la profundidad de análisis contextual.</p>
-                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div className="text-center p-3 bg-white rounded-2xl border border-slate-100">
-                      <span className="block text-[10px] font-black text-slate-400 mb-1">CAPACIDAD</span>
-                      <span className="text-sm font-bold text-slate-700 italic">Multimodal</span>
+                 <p className="text-slate-600 text-xs lg:text-sm mb-4 leading-relaxed">Motor principal de procesamiento de lenguaje natural y visión computacional. Optimizado para baja latencia.</p>
+                 <div className="grid grid-cols-2 gap-3 lg:gap-4">
+                    <div className="text-center p-2 lg:p-3 bg-white rounded-2xl border border-slate-100">
+                      <span className="block text-[8px] lg:text-[10px] font-black text-slate-400 mb-1 uppercase tracking-wider">Capacidad</span>
+                      <span className="text-[10px] lg:text-sm font-bold text-slate-700 italic">Multimodal</span>
                     </div>
-                    <div className="text-center p-3 bg-white rounded-2xl border border-slate-100">
-                      <span className="block text-[10px] font-black text-slate-400 mb-1">LATENCIA AVG</span>
-                      <span className="text-sm font-bold text-slate-700 italic">140ms</span>
+                    <div className="text-center p-2 lg:p-3 bg-white rounded-2xl border border-slate-100">
+                      <span className="block text-[8px] lg:text-[10px] font-black text-slate-400 mb-1 uppercase tracking-wider">Latencia</span>
+                      <span className="text-[10px] lg:text-sm font-bold text-slate-700 italic">140ms</span>
                     </div>
-                    <div className="text-center p-3 bg-white rounded-2xl border border-slate-100">
-                      <span className="block text-[10px] font-black text-slate-400 mb-1">CONTEXTO</span>
-                      <span className="text-sm font-bold text-slate-700 italic">1M Tokens</span>
+                    <div className="text-center p-2 lg:p-3 bg-white rounded-2xl border border-slate-100">
+                      <span className="block text-[8px] lg:text-[10px] font-black text-slate-400 mb-1 uppercase tracking-wider">Contexto</span>
+                      <span className="text-[10px] lg:text-sm font-bold text-slate-700 italic">1M Tokens</span>
                     </div>
-                    <div className="text-center p-3 bg-white rounded-2xl border border-slate-100">
-                      <span className="block text-[10px] font-black text-slate-400 mb-1">SEGURIDAD</span>
-                      <span className="text-sm font-bold text-slate-700 italic">Enterprise</span>
+                    <div className="text-center p-2 lg:p-3 bg-white rounded-2xl border border-slate-100">
+                      <span className="block text-[8px] lg:text-[10px] font-black text-slate-400 mb-1 uppercase tracking-wider">Seguridad</span>
+                      <span className="text-[10px] lg:text-sm font-bold text-slate-700 italic">Enterprise</span>
                     </div>
                  </div>
               </div>
            </div>
 
-           <div className="p-8 bg-slate-50/50 rounded-3xl border border-dashed border-slate-200 flex items-center justify-center py-12">
+           <div className="p-8 bg-slate-50/50 rounded-3xl border border-dashed border-slate-200 flex items-center justify-center py-10 lg:py-12">
               <div className="text-center space-y-2">
-                 <Eye className="w-8 h-8 text-slate-300 mx-auto" />
-                 <p className="text-slate-400 font-bold text-sm tracking-tight">Escaneando mejoras de firmware...</p>
-                 <p className="text-[10px] text-slate-300 font-medium">Siguiente actualización programada: 05/05/2026</p>
+                 <Eye className="w-6 h-6 lg:w-8 lg:h-8 text-slate-300 mx-auto" />
+                 <p className="text-slate-400 font-bold text-xs lg:text-sm tracking-tight">Escaneando mejoras de firmware...</p>
+                 <p className="text-[9px] lg:text-[10px] text-slate-300 font-medium">Siguiente actualización: 05/05/2026</p>
               </div>
            </div>
         </div>
@@ -497,78 +496,72 @@ export default function AuthorityDashboard() {
   );
 
   const renderProfileView = () => (
-    <div className={`min-h-[calc(100vh-140px)] space-y-8 relative ${showSecurityModal ? 'overflow-hidden' : ''}`}>
+    <div className={`min-h-[calc(100vh-140px)] space-y-6 lg:space-y-8 relative ${showSecurityModal ? 'overflow-hidden' : ''}`}>
       <div className={`transition-all duration-300 ${showSecurityModal ? 'opacity-40 blur-sm pointer-events-none' : 'opacity-100'}`}>
-        <div className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4 sm:gap-2">
+        <div className="flex flex-col sm:flex-row items-center justify-between mb-6 lg:mb-8 gap-4 sm:gap-2">
           <button 
             onClick={() => setCurrentView('main')}
-            className="flex items-center space-x-2 text-slate-500 hover:text-auth-primary transition-colors font-bold text-sm uppercase tracking-widest order-2 sm:order-1"
+            className="flex items-center space-x-2 text-slate-500 hover:text-auth-primary transition-colors font-bold text-[10px] lg:text-sm uppercase tracking-widest order-2 sm:order-1"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeft className="w-4 h-4 lg:w-5 lg:h-5" />
             <span>Volver al panel central</span>
           </button>
           
           <div className="flex items-center space-x-2 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-100 order-1 sm:order-2 self-end sm:self-auto">
-             <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-             <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">SINCRONIZACIÓN LOCAL ACTIVA</span>
+             <div className="w-1.5 h-1.5 lg:w-2 lg:h-2 bg-emerald-500 rounded-full animate-pulse" />
+             <span className="text-[8px] lg:text-[10px] font-black text-emerald-600 uppercase tracking-widest">SINCRONIZACIÓN ACTIVA</span>
           </div>
         </div>
 
-        <div className="max-w-2xl mx-auto space-y-8">
+        <div className="max-w-2xl mx-auto space-y-6 lg:space-y-8">
           {/* Profile Header Card */}
-          <section className="bg-white rounded-[2.5rem] p-10 border border-slate-200 shadow-sm text-center">
-            <div className="relative inline-block mb-6 group">
-              <div className="w-28 h-28 bg-auth-primary rounded-[2.2rem] flex items-center justify-center font-black text-white text-4xl shadow-2xl relative overflow-hidden transition-all group-hover:scale-105">
+          <section className="bg-white rounded-[2rem] lg:rounded-[2.5rem] p-8 lg:p-10 border border-slate-200 shadow-sm text-center">
+            <div className="relative inline-block mb-4 lg:mb-6 group">
+              <div className="w-24 h-24 lg:w-28 lg:h-28 bg-auth-primary rounded-3xl lg:rounded-[2.2rem] flex items-center justify-center font-black text-white text-3xl lg:text-4xl shadow-2xl relative overflow-hidden transition-all group-hover:scale-105">
                 CS
                 <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all">
-                  <Camera className="w-8 h-8 text-white" />
+                  <Camera className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
                 </div>
               </div>
-              <div className="absolute -bottom-2 -right-2 bg-emerald-500 p-2.5 rounded-2xl border-4 border-white shadow-lg">
-                <Camera className="w-4 h-4 text-white" />
+              <div className="absolute -bottom-1 -right-1 bg-emerald-500 p-2 lg:p-2.5 rounded-xl lg:rounded-2xl border-2 lg:border-4 border-white shadow-lg">
+                <Camera className="w-3 h-3 lg:w-4 lg:h-4 text-white" />
               </div>
             </div>
-            <h2 className="text-3xl font-black text-auth-primary tracking-tight">{profileData.name}</h2>
-            <p className="text-slate-400 text-xs font-black uppercase tracking-[0.2em] mt-2 italic">{profileData.role}</p>
+            <h2 className="text-2xl lg:text-3xl font-black text-auth-primary tracking-tight">{profileData.name}</h2>
+            <p className="text-slate-400 text-[10px] lg:text-xs font-black uppercase tracking-[0.2em] mt-2 italic">{profileData.role}</p>
           </section>
 
           {/* Readonly Info Section */}
-          <section className="bg-white rounded-[2.5rem] p-10 border border-slate-200 shadow-sm space-y-8">
-            <h3 className="font-black text-xs uppercase tracking-[0.2em] text-slate-400 flex items-center space-x-2">
-              <User className="w-4 h-4" />
+          <section className="bg-white rounded-[2rem] lg:rounded-[2.5rem] p-8 lg:p-10 border border-slate-200 shadow-sm space-y-6 lg:space-y-8">
+            <h3 className="font-black text-[10px] lg:text-xs uppercase tracking-[0.2em] text-slate-400 flex items-center space-x-2">
+              <User className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
               <span>Información Gubernamental</span>
             </h3>
             
-            <div className="space-y-6">
-              <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Nombre Registrado</label>
+            <div className="space-y-4 lg:space-y-6">
+              <div className="space-y-1.5 lg:space-y-2">
+                <label className="text-[9px] lg:text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Nombre Registrado</label>
                 <div className="relative">
-                  <User className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-300" />
+                  <User className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 w-4 h-4 lg:w-5 lg:h-5 text-slate-300" />
                   <input 
                     type="text" 
                     readOnly
                     value={profileData.name}
-                    className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-5 pl-14 pr-6 outline-none font-bold text-slate-400 cursor-not-allowed" 
+                    className="w-full bg-slate-50 border border-slate-100 rounded-xl lg:rounded-2xl py-4 lg:py-5 pl-12 lg:pl-14 pr-6 outline-none font-bold text-slate-400 cursor-not-allowed text-xs lg:text-base" 
                   />
-                  <div className="absolute right-5 top-1/2 -translate-y-1/2">
-                    <LockKeyhole className="w-4 h-4 text-slate-300" />
-                  </div>
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Correo Institucional</label>
+              <div className="space-y-1.5 lg:space-y-2">
+                <label className="text-[9px] lg:text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Correo Institucional</label>
                 <div className="relative">
-                  <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-300" />
+                  <Mail className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 w-4 h-4 lg:w-5 lg:h-5 text-slate-300" />
                   <input 
                     type="email" 
                     readOnly
                     value={profileData.email}
-                    className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-5 pl-14 pr-6 outline-none font-bold text-slate-400 cursor-not-allowed" 
+                    className="w-full bg-slate-50 border border-slate-100 rounded-xl lg:rounded-2xl py-4 lg:py-5 pl-12 lg:pl-14 pr-6 outline-none font-bold text-slate-400 cursor-not-allowed text-xs lg:text-base" 
                   />
-                  <div className="absolute right-5 top-1/2 -translate-y-1/2">
-                    <LockKeyhole className="w-4 h-4 text-slate-300" />
-                  </div>
                 </div>
               </div>
             </div>
@@ -577,37 +570,33 @@ export default function AuthorityDashboard() {
           {/* Security Action Card */}
           <section 
             onClick={() => setShowSecurityModal(true)}
-            className="bg-white rounded-[2.5rem] p-10 border border-slate-200 shadow-sm flex items-center justify-between group cursor-pointer hover:border-indigo-500 transition-all"
+            className="bg-white rounded-[2rem] lg:rounded-[2.5rem] p-8 lg:p-10 border border-slate-200 shadow-sm flex items-center justify-between group cursor-pointer hover:border-indigo-500 transition-all"
           >
-            <div className="flex items-center space-x-5">
-              <div className="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center group-hover:bg-indigo-50 transition-colors">
-                <Key className="w-7 h-7 text-slate-400 group-hover:text-indigo-500 transition-colors" />
+            <div className="flex items-center space-x-4 lg:space-x-5">
+              <div className="w-12 h-12 lg:w-14 lg:h-14 bg-slate-50 rounded-xl lg:rounded-2xl flex items-center justify-center group-hover:bg-indigo-50 transition-colors">
+                <Key className="w-6 h-6 lg:w-7 lg:h-7 text-slate-400 group-hover:text-indigo-500 transition-colors" />
               </div>
               <div>
-                <h3 className="font-black text-lg text-slate-800">Seguridad de Acceso</h3>
-                <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest mt-0.5">Modificar Contraseña & Credenciales</p>
+                <h3 className="font-black text-base lg:text-lg text-slate-800">Seguridad</h3>
+                <p className="text-[8px] lg:text-[10px] text-slate-400 font-black uppercase tracking-widest mt-0.5">Modificar Contraseña</p>
               </div>
             </div>
-            <ChevronRight className="w-6 h-6 text-slate-300 group-hover:translate-x-1 transition-all" />
+            <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6 text-slate-300 group-hover:translate-x-1 transition-all" />
           </section>
 
-          {/* 2FA Configuration (Static/Readonly as per prompt) */}
-          <section className="bg-slate-900 rounded-[2.5rem] p-10 text-white space-y-6">
+          {/* 2FA Configuration */}
+          <section className="bg-slate-900 rounded-[2rem] lg:rounded-[2.5rem] p-8 lg:p-10 text-white space-y-4 lg:space-y-6">
             <div className="flex items-center justify-between">
-              <div className="space-y-2">
-                <h3 className="font-black text-lg uppercase tracking-tight">Verificación en 2 pasos</h3>
-                <p className="text-xs text-white/40 font-bold">Funcionalidad de 2FA para futura implementación</p>
+              <div className="space-y-1 lg:space-y-2">
+                <h3 className="font-black text-base lg:text-lg uppercase tracking-tight">Verificación 2FA</h3>
+                <p className="text-[10px] text-white/40 font-bold">Protección adicional de cuenta</p>
               </div>
               <button 
                 onClick={() => setTwoFactorActive(!twoFactorActive)}
-                className={`w-12 h-6 rounded-full relative transition-all duration-300 ${twoFactorActive ? 'bg-emerald-500' : 'bg-white/20'}`}
+                className={`w-10 h-5 lg:w-12 lg:h-6 rounded-full relative transition-all duration-300 ${twoFactorActive ? 'bg-emerald-500' : 'bg-white/20'}`}
               >
-                <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all duration-300 ${twoFactorActive ? 'right-1' : 'left-1'}`} />
+                <div className={`absolute top-0.5 lg:top-1 w-4 h-4 bg-white rounded-full transition-all duration-300 ${twoFactorActive ? 'right-0.5 lg:right-1' : 'left-0.5 lg:left-1'}`} />
               </button>
-            </div>
-            <div className="flex items-center space-x-3 text-[10px] font-black text-white/30 uppercase tracking-[0.2em] pt-4 border-t border-white/5">
-              <ShieldAlert className="w-4 h-4" />
-              <span>Nivel de Seguridad: Estándar (Pendiente 2FA)</span>
             </div>
           </section>
         </div>
@@ -728,23 +717,23 @@ export default function AuthorityDashboard() {
         </aside>
 
         {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto p-6 lg:p-12">
-          <header className={`${currentView === 'profile' ? 'hidden' : 'flex'} flex-col lg:flex-row justify-between items-start lg:items-center mb-10 gap-6`}>
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-12 pb-32 md:pb-12">
+          <header className={`${currentView === 'profile' ? 'hidden' : 'flex'} flex-col lg:flex-row justify-between items-start lg:items-center mb-8 lg:mb-10 gap-6`}>
             <div>
               <span className="persona-label bg-slate-200 text-slate-700">AUTORIDADES</span>
-              <h1 className="text-4xl text-auth-primary font-black tracking-tight">
+              <h1 className="text-3xl lg:text-4xl text-auth-primary font-black tracking-tight">
                 {activeTab === 'dashboard' ? 'Centro de Control' : activeTab === 'monitor' ? 'Geointeligencia' : 'Seguridad IA'}
               </h1>
-              <p className="text-slate-500 font-medium mt-1">Supervisión sistémica de protección infantil</p>
+              <p className="text-slate-500 text-sm lg:text-base font-medium mt-1">Supervisión sistémica de protección infantil</p>
             </div>
             
-            <div className="flex items-center space-x-6 w-full lg:w-auto">
+            <div className="flex items-center space-x-4 lg:space-x-6 w-full lg:w-auto">
               <div className="relative flex-1 lg:flex-none">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <input 
                   type="text" 
                   placeholder="ID de incidente..." 
-                  className="pl-12 pr-6 py-3 bg-white border border-slate-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-auth-primary/5 transition-all w-full lg:w-64 font-medium"
+                  className="pl-12 pr-6 py-3 bg-white border border-slate-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-auth-primary/5 transition-all w-full lg:w-64 font-medium text-sm"
                 />
               </div>
 
@@ -752,9 +741,9 @@ export default function AuthorityDashboard() {
               <div className="relative">
                 <button 
                   onClick={() => setShowProfileMenu(!showProfileMenu)}
-                  className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all ${showProfileMenu ? 'border-emerald-500 bg-emerald-50' : 'border-slate-200 bg-white hover:border-slate-300'}`}
+                  className={`w-10 h-10 lg:w-12 lg:h-12 rounded-full border-2 flex items-center justify-center transition-all ${showProfileMenu ? 'border-emerald-500 bg-emerald-50' : 'border-slate-200 bg-white hover:border-slate-300'}`}
                 >
-                  <User className={`w-6 h-6 ${showProfileMenu ? 'text-emerald-600' : 'text-slate-400'}`} />
+                  <User className={`w-5 h-5 lg:w-6 lg:h-6 ${showProfileMenu ? 'text-emerald-600' : 'text-slate-400'}`} />
                 </button>
 
                 <AnimatePresence>
@@ -795,8 +784,8 @@ export default function AuthorityDashboard() {
                 </AnimatePresence>
               </div>
 
-              <button className="p-3 bg-auth-primary text-white rounded-2xl shadow-xl shadow-auth-primary/20">
-                <BarChart3 className="w-6 h-6" />
+              <button className="p-2.5 lg:p-3 bg-auth-primary text-white rounded-2xl shadow-xl shadow-auth-primary/20">
+                <BarChart3 className="w-5 h-5 lg:w-6 lg:h-6" />
               </button>
             </div>
           </header>
@@ -820,6 +809,44 @@ export default function AuthorityDashboard() {
           </AnimatePresence>
         </main>
       </div>
+
+      {/* Mobile Bottom Navigation Bar */}
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-xl border-t border-[#D9E2EC] px-6 py-4 z-[80]">
+        <nav className="flex justify-around items-center max-w-md mx-auto">
+          <button 
+            onClick={() => { setActiveTab('dashboard'); setCurrentView('main'); }}
+            className={`flex flex-col items-center space-y-1 transition-all ${activeTab === 'dashboard' && currentView === 'main' ? 'text-auth-primary' : 'text-[#D9E2EC]'}`}
+          >
+            <LayoutList className={`w-6 h-6 ${activeTab === 'dashboard' && currentView === 'main' ? 'stroke-[2.5]' : 'stroke-2'}`} />
+            <span className="text-[9px] font-black uppercase tracking-[0.1em]">Panel</span>
+          </button>
+          
+          <button 
+            onClick={() => { setActiveTab('monitor'); setCurrentView('main'); }}
+            className={`flex flex-col items-center space-y-1 transition-all ${activeTab === 'monitor' && currentView === 'main' ? 'text-auth-primary' : 'text-[#D9E2EC]'}`}
+          >
+            <Globe className={`w-6 h-6 ${activeTab === 'monitor' && currentView === 'main' ? 'stroke-[2.5]' : 'stroke-2'}`} />
+            <span className="text-[9px] font-black uppercase tracking-[0.1em]">Mapa</span>
+          </button>
+
+          <button 
+            onClick={() => { setActiveTab('ai'); setCurrentView('main'); }}
+            className={`flex flex-col items-center space-y-1 transition-all ${activeTab === 'ai' && currentView === 'main' ? 'text-auth-primary' : 'text-[#D9E2EC]'}`}
+          >
+            <Zap className={`w-6 h-6 ${activeTab === 'ai' && currentView === 'main' ? 'stroke-[2.5]' : 'stroke-2'}`} />
+            <span className="text-[9px] font-black uppercase tracking-[0.1em]">IA</span>
+          </button>
+
+          <button 
+            onClick={() => setCurrentView('profile')}
+            className={`flex flex-col items-center space-y-1 transition-all ${currentView === 'profile' ? 'text-emerald-500' : 'text-[#D9E2EC]'}`}
+          >
+            <User className={`w-6 h-6 ${currentView === 'profile' ? 'stroke-[2.5]' : 'stroke-2'}`} />
+            <span className="text-[9px] font-black uppercase tracking-[0.1em]">Perfil</span>
+          </button>
+        </nav>
+      </div>
     </div>
+
   );
 }
