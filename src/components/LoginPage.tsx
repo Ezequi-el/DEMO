@@ -48,7 +48,7 @@ export default function LoginPage() {
             <div className="w-14 h-14 bg-[#4A90E2] rounded-2xl shadow-xl shadow-[#4A90E2]/20 flex items-center justify-center mb-4">
               <Shield className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-2xl font-black text-slate-800 tracking-tight uppercase">SAFEFY</h1>
+            <h1 className="text-2xl font-black text-slate-800 tracking-tight uppercase">GUARDIAN</h1>
             <p className="text-slate-400 text-[11px] font-bold tracking-widest uppercase mt-1">Protección Digital Inteligente</p>
           </div>
 

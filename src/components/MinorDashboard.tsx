@@ -212,12 +212,7 @@ export default function MinorDashboard() {
                   { 
                     name: 'YouTube Kids', 
                     icon: 'https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/395_Youtube_logo-512.png',
-                    status: 'allowed'
-                  },
-                  { 
-                    name: 'Duolingo', 
-                    icon: 'https://cdn4.iconfinder.com/data/icons/logos-brands-5/24/duolingo-512.png',
-                    status: 'allowed'
+                    status: 'blocked'
                   },
                   { 
                     name: 'Roblox', 
@@ -268,7 +263,7 @@ export default function MinorDashboard() {
                 </button>
                 <div className="flex items-center justify-center space-x-2 text-[9px] font-black text-slate-300 uppercase tracking-widest">
                   <Shield className="w-3 h-3" />
-                  <span>Protección infantil SAFEFY 24/7</span>
+                  <span>Protección infantil GUARDIAN 24/7</span>
                 </div>
               </div>
             </div>
@@ -600,7 +595,7 @@ export default function MinorDashboard() {
                        <Shield className="w-6 h-6" />
                     </div>
                     <p className="text-xs font-bold text-emerald-800 leading-relaxed">
-                      El sistema SAFEFY ha detectado un uso equilibrado. Los límites establecidos siguen activos para proteger la salud digital.
+                      El sistema GUARDIAN ha detectado un uso equilibrado. Los límites establecidos siguen activos para proteger la salud digital.
                     </p>
                  </div>
               </div>

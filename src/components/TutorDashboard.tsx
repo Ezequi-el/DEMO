@@ -84,7 +84,7 @@ export default function TutorDashboard() {
   // Profile editable fields (simulated)
   const [profileData, setProfileData] = useState({
     name: 'Sr. Responsable',
-    email: 'tutor@safefy.com',
+    email: 'tutor@guardian.com',
     phone: '+34 600 000 000'
   });
 
@@ -461,7 +461,7 @@ export default function TutorDashboard() {
             <div className="bg-emerald-600 p-2.5 rounded-2xl shadow-xl shadow-emerald-100">
               <Shield className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-black tracking-tighter text-stone-900 uppercase">SAFEFY</span>
+            <span className="text-xl font-black tracking-tighter text-stone-900 uppercase">GUARDIAN</span>
           </div>
           
           <div className="relative">
@@ -773,7 +773,7 @@ export default function TutorDashboard() {
                        <Shield className="w-6 h-6" />
                     </div>
                     <p className="text-xs font-bold text-emerald-800 leading-relaxed">
-                      El sistema SAFEFY ha detectado un uso equilibrado. Los límites establecidos siguen activos para proteger la salud digital del menor.
+                      El sistema GUARDIAN ha detectado un uso equilibrado. Los límites establecidos siguen activos para proteger la salud digital del menor.
                     </p>
                  </div>
               </div>

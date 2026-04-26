@@ -26,28 +26,28 @@ export default function TermsAndConditions({ onClose }: TermsAndConditionsProps)
         <section className="space-y-3">
           <h3 className="text-sm font-black text-slate-800 uppercase tracking-widest">1. Aceptación de los Términos</h3>
           <p className="text-sm">
-            Al acceder y utilizar SAFEFY, usted acepta estar sujeto a estos Términos y Condiciones. Si no está de acuerdo con alguna parte de estos términos, no podrá utilizar nuestro servicio. SAFEFY es una herramienta diseñada para ayudar a los padres y tutores a supervisar la actividad digital de los menores a su cargo.
+            Al acceder y utilizar Guardian, usted acepta estar sujeto a estos Términos y Condiciones. Si no está de acuerdo con alguna parte de estos términos, no podrá utilizar nuestro servicio. Guardian es una herramienta diseñada para ayudar a los padres y tutores a supervisar la actividad digital de los menores a su cargo.
           </p>
         </section>
 
         <section className="space-y-3">
           <h3 className="text-sm font-black text-slate-800 uppercase tracking-widest">2. Privacidad y Datos</h3>
           <p className="text-sm">
-            Su privacidad es de suma importancia para nosotros. La recopilación y el uso de datos se rigen por nuestra Política de Privacidad. Al utilizar SAFEFY, usted reconoce que ha leído la Política de Privacidad y consiente la recopilación de datos necesaria para el funcionamiento del servicio de control parental.
+            Su privacidad es de suma importancia para nosotros. La recopilación y el uso de datos se rigen por nuestra Política de Privacidad. Al utilizar Guardian, usted reconoce que ha leído la Política de Privacidad y consiente la recopilación de datos necesaria para el funcionamiento del servicio de control parental.
           </p>
         </section>
 
         <section className="space-y-3">
           <h3 className="text-sm font-black text-slate-800 uppercase tracking-widest">3. Responsabilidad del Usuario</h3>
           <p className="text-sm">
-            Usted es responsable de mantener la confidencialidad de su cuenta y contraseña. Además, declara que tiene la autoridad legal para supervisar los dispositivos y las cuentas de los menores vinculados a su perfil de SAFEFY. El uso indebido de la plataforma para espiar a personas sin consentimiento legal está estrictamente prohibido.
+            Usted es responsable de mantener la confidencialidad de su cuenta y contraseña. Además, declara que tiene la autoridad legal para supervisar los dispositivos y las cuentas de los menores vinculados a su perfil de Guardian. El uso indebido de la plataforma para espiar a personas sin consentimiento legal está estrictamente prohibido.
           </p>
         </section>
 
         <section className="space-y-3">
           <h3 className="text-sm font-black text-slate-800 uppercase tracking-widest">4. Limitación de Responsabilidad</h3>
           <p className="text-sm">
-            SAFEFY se proporciona "tal cual" y no garantizamos que el servicio sea ininterrumpido o esté libre de errores. No seremos responsables de ningún daño indirecto, incidental o consecuente que surja del uso o la imposibilidad de usar el servicio.
+            Guardian se proporciona "tal cual" y no garantizamos que el servicio sea ininterrumpido o esté libre de errores. No seremos responsables de ningún daño indirecto, incidental o consecuente que surja del uso o la imposibilidad de usar el servicio.
           </p>
         </section>
 

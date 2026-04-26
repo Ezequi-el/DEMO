@@ -51,7 +51,7 @@ export default function EducationPage() {
 
   const stories = {
     '6-9': [
-      { id: 1, title: 'La Aventura del Escudo Mágico', desc: 'Aprende a proteger tu información con el Capitán Safefy.', icon: Gamepad2, color: 'bg-emerald-50 text-emerald-600', type: 'Juego' },
+      { id: 1, title: 'La Aventura del Escudo Mágico', desc: 'Aprende a proteger tu información con el Capitán Guardian.', icon: Gamepad2, color: 'bg-emerald-50 text-emerald-600', type: 'Juego' },
       { id: 2, title: 'El Amigo Desconocido', desc: 'Una historia sobre por qué no debemos hablar con extraños en juegos.', icon: BookOpen, color: 'bg-blue-50 text-blue-600', type: 'Cuento' },
     ],
     '10-12': [
@@ -402,7 +402,7 @@ export default function EducationPage() {
                         </p>
                         <div className="bg-emerald-50 p-6 rounded-[2rem] border border-emerald-100">
                            <p className="text-[10px] font-bold text-emerald-800 leading-relaxed italic">
-                             "Alex ha solicitado hablar sobre un contenido bloqueado por SAFEFY."
+                             "Alex ha solicitado hablar sobre un contenido bloqueado por GUARDIAN."
                            </p>
                         </div>
                       </div>

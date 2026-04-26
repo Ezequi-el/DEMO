@@ -101,8 +101,7 @@ export default function ProfilePage() {
         </div>
 
         <p className="mt-12 text-center text-slate-300 text-[10px] font-black uppercase tracking-[0.4em] pb-10">
-          SafeFy v1.0.0
-        </p>
+          Guardian v1.0.0        </p>
       </div>
 
       {/* Share Soon Modal */}

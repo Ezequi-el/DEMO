@@ -1,5 +1,5 @@
 {
-  "name": "SAFEFY",
+  "name": "Guardian",
   "description": "Plataforma segura de redes sociales para menores con análisis de IA local y gamificación.",
   "requestFramePermissions": [
     "camera"

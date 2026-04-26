@@ -203,8 +203,7 @@ export default function SettingsPage() {
 
         {/* Footer info */}
         <div className="text-center py-4 space-y-2">
-           <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.3em]">SafeFy v1.0.4 - Hackathon Build</p>
-           <button className="text-[10px] font-black text-[#FF6B6B] uppercase tracking-widest underline decoration-dotted">Eliminar todos los datos</button>
+           <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.3em]">Guardian v1.0.4 - Hackathon Build</p>           <button className="text-[10px] font-black text-[#FF6B6B] uppercase tracking-widest underline decoration-dotted">Eliminar todos los datos</button>
         </div>
       </main>
     </div>
