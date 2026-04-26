@@ -1,10 +1,10 @@
-# SAFEFY - Plataforma de Seguridad Digital para Menores
+# Guardian - Plataforma de Seguridad Digital para Menores
 
-SAFEFY es una solución integral diseñada para proteger a los menores en el entorno digital, fomentando hábitos saludables a través de la gamificación y permitiendo una supervisión activa y preventiva por parte de tutores.
+Guardian es una solución integral diseñada para proteger a los menores en el entorno digital, fomentando hábitos saludables a través de la gamificación y permitiendo una supervisión activa y preventiva por parte de tutores.
 
 ## Propósito del Proyecto
 
-El objetivo principal de SAFEFY es crear un puente de confianza entre menores y tutores, transformando la supervisión digital de una tarea restrictiva a una experiencia educativa y gratificante. La plataforma utiliza inteligencia artificial para detectar riesgos en tiempo real y un sistema de recompensas para incentivar el buen comportamiento digital.
+El objetivo principal de Guardian es crear un puente de confianza entre menores y tutores, transformando la supervisión digital de una tarea restrictiva a una experiencia educativa y gratificante. La plataforma utiliza inteligencia artificial para detectar riesgos en tiempo real y un sistema de recompensas para incentivar el buen comportamiento digital.
 
 ## Roles de Usuario
 
