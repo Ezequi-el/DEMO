@@ -77,7 +77,10 @@ Para la implementación real con el capital semilla, el equipo ha definido los s
     - Implementación de **encriptación robusta para datos en reposo y en tránsito**, garantizando que la información sensible de los menores esté protegida contra accesos no autorizados o hackeos.
     - Protocolos estrictos de anonimización para el entrenamiento de modelos de IA.
 3.  **Transición a Ecosistema Nativo:** Evolución de la actual PWA hacia aplicaciones nativas para **iOS y Android**, permitiendo un control perimetral más efectivo y una mejor experiencia de usuario (UX) mediante diseño optimizado.
-4.  **Expansión de Plataformas:** Extender la protección de Guardian a ecosistemas adicionales como **YouTube**.
+4.  **Gamificación y Recompensas:** 
+    - Ampliación del catálogo de premios incluyendo **skins exclusivas** para juegos populares (Roblox, Fortnite, Minecraft) y **cupones de descuento** en plataformas educativas y de entretenimiento.
+5.  **Expansión de Plataformas:**
+ Extender la protección de Guardian a ecosistemas adicionales como **YouTube**.
 5.  **Integración Avanzada con TikTok:** Desarrollo de herramientas especializadas para el análisis profundo de tendencias y datos de TikTok, permitiendo identificar patrones de contacto sospechosos antes de que escalen.
 
 ## Integrantes del equipo (Orden Alfabético)
@@ -90,3 +93,4 @@ Para la implementación real con el capital semilla, el equipo ha definido los s
 
 ---
 *Este proyecto es una demostración funcional de una plataforma de seguridad digital avanzada para la Hackathon.*
+tal avanzada para la Hackathon.*
