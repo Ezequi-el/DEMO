@@ -60,6 +60,25 @@ graph TD
     D -->|Crítico/Threat| G
 ```
 
+## Roles de Usuario
+
+### Menor (Minor)
+- **Dashboard Gamificado:** Visualización de puntos, rachas de uso responsable y niveles.
+- **Entorno Seguro:** Acceso a aplicaciones verificadas y seguras.
+- **Historial de Uso:** Transparencia sobre el tiempo dedicado a cada aplicación.
+- **Sistema de Premios:** Canje de puntos obtenidos por beneficios acordados con el tutor.
+- **Educación:** Sección dedicada al aprendizaje sobre seguridad digital.
+
+### Tutor (Guardian)
+- **Panel de Supervisión:** Monitoreo en tiempo real de la actividad y tiempo de pantalla.
+- **Alertas Críticas:** Notificaciones instantáneas sobre riesgos detectados por IA (grooming, contenido violento, estafas, etc.).
+- **Gestión de Premios:** Creación y activación de recompensas personalizadas.
+- **Vinculación Segura:** Emparejamiento rápido con dispositivos de menores mediante código QR.
+- **Configuración de Límites:** Establecimiento de horarios y restricciones de uso.
+
+### Autoridad (Authority)
+- **Panel Institucional:** Diseñado para supervisión de alto nivel o reportes institucionales (disponible en modo demo).
+
 ## Instrucciones para ejecutar el prototipo
 
 1.  **Instalar dependencias:**
