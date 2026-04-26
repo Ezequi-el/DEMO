@@ -49,7 +49,7 @@ Siguiendo las normas del **Hackathon 404: Threat Not Found**, documentamos el us
 ```mermaid
 graph TD
     A[Usuario: Menor] -->|Interactúa| B(Minor Dashboard)
-    B -->|Data Stream| C[AI Service - Gemini]
+    B -->|Data Stream| C[AI Service - BERT]
     C -->|Análisis de Riesgo| H[Store - Zustand]
     H <--> B
     H <--> F[Tutor Dashboard]
