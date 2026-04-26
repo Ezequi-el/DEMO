@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { 
   Shield,
   ShieldAlert, 
@@ -26,14 +26,25 @@ import {
   Key
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 export default function AuthorityDashboard() {
+  const mapboxToken = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env?.VITE_MAPBOX_TOKEN;
+  const mapContainerRef = useRef<HTMLDivElement | null>(null);
+  const mapRef = useRef<mapboxgl.Map | null>(null);
+  const [mapContainer, setMapContainer] = useState<HTMLDivElement | null>(null);
+  const handleMapContainerRef = useCallback((node: HTMLDivElement | null) => {
+    mapContainerRef.current = node;
+    setMapContainer(node);
+  }, []);
   const [activeTab, setActiveTab] = useState<'dashboard' | 'monitor' | 'ai'>('dashboard');
   const [currentView, setCurrentView] = useState<'main' | 'profile'>('main');
   const [exportOpen, setExportOpen] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [showSecurityModal, setShowSecurityModal] = useState(false);
   const [twoFactorActive, setTwoFactorActive] = useState(false);
+  const [mapStatus, setMapStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>('idle');
   const [profileData] = useState({
     name: 'Cmdte. Seguridad',
     email: 'seguridad.nacional@auth.gob',
@@ -47,14 +58,172 @@ export default function AuthorityDashboard() {
   ];
 
   const mapPoints = [
-    { id: 1, x: '35%', y: '65%', group: 'CDS (Mayiza)', color: 'bg-red-500', isVpn: false },
-    { id: 2, x: '48%', y: '75%', group: 'CJNG (4 Letras)', color: 'bg-blue-500', isVpn: false },
-    { id: 3, x: '32%', y: '50%', group: 'Bélicos / Maña', color: 'bg-slate-900', isVpn: false },
-    { id: 4, x: '65%', y: '45%', group: 'Sincronización Musical', color: 'bg-emerald-400', isVpn: true },
-    { id: 5, x: '25%', y: '70%', group: 'CDS (Mayiza)', color: 'bg-red-500', isVpn: false },
+    { id: 1, lng: -107.394, lat: 24.809, group: 'CDS (Mayiza)', state: 'Sinaloa', city: 'Culiacán', color: 'bg-red-500', markerColor: '#ef4444', isVpn: false },
+    { id: 2, lng: -108.985, lat: 25.793, group: 'Sincronización Musical', state: 'Sinaloa', city: 'Los Mochis', color: 'bg-emerald-400', markerColor: '#34d399', isVpn: false },
+    { id: 3, lng: -103.349, lat: 20.659, group: 'CJNG (4 Letras)', state: 'Jalisco', city: 'Guadalajara', color: 'bg-blue-500', markerColor: '#3b82f6', isVpn: false },
+    { id: 4, lng: -104.903, lat: 20.544, group: 'Bélicos / Maña', state: 'Jalisco', city: 'Puerto Vallarta', color: 'bg-slate-900', markerColor: '#0f172a', isVpn: false },
+    { id: 5, lng: -99.501, lat: 17.552, group: 'Bélicos / Maña', state: 'Guerrero', city: 'Chilpancingo', color: 'bg-slate-900', markerColor: '#0f172a', isVpn: false },
+    { id: 6, lng: -99.89, lat: 16.853, group: 'CDS (Mayiza)', state: 'Guerrero', city: 'Acapulco', color: 'bg-red-500', markerColor: '#ef4444', isVpn: false },
+    { id: 7, lng: -98.759, lat: 17.55, group: 'CJNG (4 Letras)', state: 'Guerrero', city: 'Tlapa', color: 'bg-blue-500', markerColor: '#3b82f6', isVpn: false },
+    { id: 8, lng: -100.317, lat: 25.686, group: 'Sincronización Musical', state: 'Nuevo León', city: 'Monterrey', color: 'bg-emerald-400', markerColor: '#34d399', isVpn: true },
+    { id: 9, lng: -100.009, lat: 25.424, group: 'CJNG (4 Letras)', state: 'Nuevo León', city: 'Santiago', color: 'bg-blue-500', markerColor: '#3b82f6', isVpn: false },
+    { id: 10, lng: -99.549, lat: 27.476, group: 'Bélicos / Maña', state: 'Nuevo León', city: 'Colombia', color: 'bg-slate-900', markerColor: '#0f172a', isVpn: false },
   ];
 
   const [showCriminalCriteria, setShowCriminalCriteria] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (activeTab !== 'monitor' || currentView !== 'main') {
+      return;
+    }
+
+    setMapStatus('loading');
+
+    if (!mapContainer) {
+      return;
+    }
+
+    if (!mapboxToken) {
+      setMapStatus('error');
+      return;
+    }
+
+    const container = mapContainer;
+    let resizeObserver: ResizeObserver | null = null;
+    const resizeTimeouts: number[] = [];
+    const frameId = window.requestAnimationFrame(() => {
+      mapboxgl.accessToken = mapboxToken;
+
+      const map = new mapboxgl.Map({
+        container,
+        style: 'mapbox://styles/mapbox/navigation-night-v1',
+        center: [-102.5528, 23.6345],
+        zoom: 4.15,
+        minZoom: 3.2,
+        attributionControl: false,
+      });
+
+      mapRef.current = map;
+      map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'bottom-right');
+      [0, 100, 300, 600].forEach((delay) => {
+        resizeTimeouts.push(window.setTimeout(() => map.resize(), delay));
+      });
+      map.once('load', () => {
+        map.resize();
+        setMapStatus('ready');
+      });
+      map.once('error', () => setMapStatus('error'));
+      resizeObserver = new ResizeObserver(() => map.resize());
+      resizeObserver.observe(container);
+
+      const visiblePoints = showCriminalCriteria
+        ? mapPoints.filter((point) => point.group === showCriminalCriteria)
+        : mapPoints;
+
+      map.on('load', () => {
+        map.resize();
+        map.addSource('threat-points', {
+          type: 'geojson',
+          data: {
+            type: 'FeatureCollection',
+            features: visiblePoints.map((point) => ({
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: [point.lng, point.lat],
+              },
+              properties: {
+                group: point.group,
+                state: point.state,
+                city: point.city,
+                markerColor: point.markerColor,
+                isVpn: point.isVpn,
+                lat: point.lat,
+                lng: point.lng,
+              },
+            })),
+          },
+        });
+
+        map.addLayer({
+          id: 'threat-point-halo',
+          type: 'circle',
+          source: 'threat-points',
+          paint: {
+            'circle-radius': 16,
+            'circle-color': ['get', 'markerColor'],
+            'circle-opacity': 0.22,
+          },
+        });
+
+        map.addLayer({
+          id: 'threat-points',
+          type: 'circle',
+          source: 'threat-points',
+          paint: {
+            'circle-radius': 8,
+            'circle-color': ['get', 'markerColor'],
+            'circle-stroke-color': '#ffffff',
+            'circle-stroke-width': 3,
+          },
+        });
+
+        map.on('mouseenter', 'threat-points', () => {
+          map.getCanvas().style.cursor = 'pointer';
+        });
+
+        map.on('mouseleave', 'threat-points', () => {
+          map.getCanvas().style.cursor = '';
+        });
+
+        map.on('click', 'threat-points', (event) => {
+          const feature = event.features?.[0];
+          const coordinates = feature?.geometry.type === 'Point' ? feature.geometry.coordinates.slice() : null;
+          const properties = feature?.properties;
+
+          if (!coordinates || !properties) {
+            return;
+          }
+
+          new mapboxgl.Popup({ closeButton: false, offset: 14, className: 'authority-map-popup' })
+            .setLngLat(coordinates as [number, number])
+            .setHTML(`
+              <div>
+                <div class="flex items-center space-x-2 mb-2 pb-2 border-b border-white/10">
+                  <span style="background:${properties.markerColor}" class="w-2 h-2 rounded-full"></span>
+                  <span class="uppercase tracking-widest leading-none">${properties.isVpn ? 'VPN Detected' : properties.group}</span>
+                </div>
+                <div class="space-y-1.5 opacity-70">
+                  <p class="flex justify-between gap-6"><span>ESTADO:</span><span class="font-mono">${properties.state}</span></p>
+                  <p class="flex justify-between gap-6"><span>ZONA:</span><span class="font-mono">${properties.city}</span></p>
+                  <p class="flex justify-between gap-6"><span>LAT:</span><span class="font-mono">${Number(properties.lat).toFixed(2)}° N</span></p>
+                  <p class="flex justify-between gap-6"><span>LON:</span><span class="font-mono">${Math.abs(Number(properties.lng)).toFixed(2)}° W</span></p>
+                </div>
+              </div>
+            `)
+            .addTo(map);
+        });
+      });
+
+      if (visiblePoints.length > 0) {
+        const bounds = new mapboxgl.LngLatBounds();
+        visiblePoints.forEach((point) => bounds.extend([point.lng, point.lat]));
+        map.fitBounds(bounds, {
+          padding: 80,
+          maxZoom: visiblePoints.length === 1 ? 7 : 5.8,
+          duration: 700,
+        });
+      }
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      resizeTimeouts.forEach((timeoutId) => window.clearTimeout(timeoutId));
+      resizeObserver?.disconnect();
+      mapRef.current?.remove();
+      mapRef.current = null;
+    };
+  }, [activeTab, currentView, mapboxToken, showCriminalCriteria, mapContainer]);
 
   const criminalCriterias: Record<string, { desc: string, indicators: string[], emojis: string[] }> = {
     'CDS (Mayiza)': {
@@ -182,7 +351,7 @@ export default function AuthorityDashboard() {
 
   const renderMonitor = () => (
     <div className="space-y-8">
-      <div className="bg-white rounded-[2rem] p-8 border border-slate-200 shadow-sm relative overflow-hidden h-[600px] flex flex-col">
+      <div className="bg-white rounded-[2rem] p-8 border border-slate-200 shadow-sm relative overflow-hidden min-h-[600px] flex flex-col">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-black font-display text-auth-primary">Geo-localización de Amenazas</h2>
           <div className="bg-slate-100 p-1.5 rounded-[1.5rem] flex flex-wrap items-center gap-2">
@@ -194,12 +363,14 @@ export default function AuthorityDashboard() {
             ].map((item) => (
               <button 
                 key={item.label}
-                onClick={() => setShowCriminalCriteria(item.label)}
-                className="flex items-center space-x-2 px-3 py-2 bg-white rounded-xl shadow-sm hover:shadow-md hover:scale-105 transition-all border border-slate-200 group"
+                onClick={() => setShowCriminalCriteria(showCriminalCriteria === item.label ? null : item.label)}
+                className={`flex items-center space-x-2 px-3 py-2 rounded-xl shadow-sm hover:shadow-md hover:scale-105 transition-all border group ${
+                  showCriminalCriteria === item.label ? 'bg-slate-900 border-slate-900 text-white' : 'bg-white border-slate-200'
+                }`}
               >
                 <div className={`w-3 h-3 rounded-full ${item.color} group-hover:animate-pulse`} />
-                <span className="text-[10px] font-black text-slate-700 uppercase tracking-tight">{item.label}</span>
-                <ChevronRight className="w-3 h-3 text-slate-300" />
+                <span className={`text-[10px] font-black uppercase tracking-tight ${showCriminalCriteria === item.label ? 'text-white' : 'text-slate-700'}`}>{item.label}</span>
+                <ChevronRight className={`w-3 h-3 ${showCriminalCriteria === item.label ? 'text-white/50' : 'text-slate-300'}`} />
               </button>
             ))}
           </div>
@@ -256,46 +427,13 @@ export default function AuthorityDashboard() {
         </AnimatePresence>
 
         {/* Map Container */}
-        <div className="flex-1 bg-slate-50 rounded-[3rem] relative overflow-hidden border border-slate-100 flex items-center justify-center p-12">
-            {/* Minimalist Mexico Map Label */}
-            <div className="absolute top-8 left-1/2 -translate-x-1/2 text-slate-300 font-black uppercase text-2xl tracking-[0.3em] opacity-20 select-none">
-              Mexico Map
+        <div className="w-full h-[500px] rounded-[3rem] relative overflow-hidden border border-slate-100">
+          <div ref={handleMapContainerRef} className="absolute inset-0 h-full w-full" />
+          {mapStatus !== 'ready' && (
+            <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/80 backdrop-blur-sm text-slate-500 text-xs font-black uppercase tracking-widest">
+              {mapStatus === 'error' ? 'No se pudo cargar Mapbox' : 'Cargando mapa dinámico'}
             </div>
-            
-            <img 
-              src="https://upload.wikimedia.org/wikipedia/commons/d/df/Mexico_map_blank.svg" 
-              alt="Mexico Map" 
-              className="h-full w-full object-contain opacity-[0.08] grayscale brightness-50 scale-110"
-              referrerPolicy="no-referrer"
-            />
-            
-            {/* Markers */}
-            {mapPoints.map((point) => (
-              <motion.div
-                key={point.id}
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                style={{ left: point.x, top: point.y }}
-                className="absolute -translate-x-1/2 -translate-y-1/2 group z-10"
-              >
-                <div className="relative cursor-pointer transform hover:scale-125 transition-transform duration-300">
-                  <div className={`w-5 h-5 rounded-full ${point.color} shadow-lg border-[3px] border-white`} />
-                  <div className={`absolute -inset-2 ${point.color} opacity-20 rounded-full animate-ping pointer-events-none`} />
-                </div>
-                
-                {/* Tooltip */}
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 hidden group-hover:block w-44 bg-slate-900/95 backdrop-blur-md text-white p-4 rounded-[1.5rem] text-[10px] font-bold z-50 shadow-2xl border border-white/10">
-                  <div className="flex items-center space-x-2 mb-2 pb-2 border-b border-white/10">
-                    <div className={`w-2 h-2 rounded-full ${point.color}`} />
-                    <span className="uppercase tracking-widest leading-none">{point.isVpn ? 'VPN Detected' : point.group}</span>
-                  </div>
-                  <div className="space-y-1.5 opacity-70">
-                    <p className="flex justify-between"><span>LAT:</span> <span className="font-mono">19.43° N</span></p>
-                    <p className="flex justify-between"><span>LON:</span> <span className="font-mono">99.13° W</span></p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+          )}
         </div>
       </div>
     </div>
@@ -553,7 +691,7 @@ export default function AuthorityDashboard() {
       <div className="flex flex-1 overflow-hidden">
         <aside className="w-20 lg:w-64 bg-auth-primary text-white hidden md:flex flex-col p-6 space-y-10 border-r border-white/5 shadow-2xl">
           <div className="flex items-center space-x-3 mb-4 px-2">
-             <div className="bg-emerald-600 p-2.5 rounded-2xl shadow-xl shadow-emerald-100">
+             <div className="bg-emerald-600 p-2.5 rounded-2xl">
                <Shield className="w-5 h-5 text-white" />
              </div>
              <span className="text-xl font-display font-bold hidden lg:block uppercase tracking-tighter">GUARDIAN ADM</span>          </div>
