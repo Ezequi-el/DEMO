@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { 
+  Shield,
   ShieldAlert, 
   BarChart3, 
   Globe, 
@@ -552,7 +553,9 @@ export default function AuthorityDashboard() {
       <div className="flex flex-1 overflow-hidden">
         <aside className="w-20 lg:w-64 bg-auth-primary text-white hidden md:flex flex-col p-6 space-y-10 border-r border-white/5 shadow-2xl">
           <div className="flex items-center space-x-3 mb-4 px-2">
-             <div className="w-10 h-10 bg-indigo-500 rounded-xl flex items-center justify-center text-white font-black text-xl tracking-tighter shadow-lg shadow-indigo-500/20">SF</div>
+             <div className="bg-emerald-600 p-2.5 rounded-2xl shadow-xl shadow-emerald-100">
+               <Shield className="w-5 h-5 text-white" />
+             </div>
              <span className="text-xl font-display font-bold hidden lg:block uppercase tracking-tighter">GUARDIAN ADM</span>          </div>
 
           <nav className="space-y-2">
@@ -682,4 +685,3 @@ export default function AuthorityDashboard() {
     </div>
   );
 }
-
