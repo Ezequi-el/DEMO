@@ -6,16 +6,32 @@ export interface AnalysisResult {
   message: string;
 }
 
-export async function analyzeContent(text: string): Promise<AnalysisResult> {
-  console.log('Simulating analysis for:', text);
+export async function analyzeVideoUrl(url: string): Promise<AnalysisResult> {
+  console.log('Analyzing video:', url);
   return new Promise((resolve) => {
     setTimeout(() => {
+      // Logic for random "danger" for demo purposes
+      const random = Math.random();
+      let status: 'safe' | 'warning' | 'blocked' = 'safe';
+      let message = 'Video verificado por IA: Seguro';
+      let category: AnalysisResult['category'] = 'safe';
+
+      if (random > 0.8) {
+        status = 'blocked';
+        message = '¡BLOQUEADO POR SEGURIDAD! Contenido inapropiado detectado.';
+        category = 'violent';
+      } else if (random > 0.5) {
+        status = 'warning';
+        message = 'Análisis de IA: Neutral / Precaución.';
+        category = 'safe';
+      }
+
       resolve({
-        riskScore: 0.1,
-        category: 'safe',
-        status: 'safe',
-        message: 'Contenido verificado por el sistema local.'
+        riskScore: random,
+        category,
+        status,
+        message
       });
-    }, 300);
+    }, 500);
   });
 }

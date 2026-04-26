@@ -54,7 +54,7 @@ graph TD
     npm install
     ```
 2.  **Configurar variables de entorno:**
-    Crea un archivo `.env` basado en `.env.example` y añade tu `GEMINI_API_KEY`.
+    Crea un archivo `.env` basado en `.env.example` para desarrollo local, o define las mismas variables en Vercel. Usa `VITE_GEMINI_API_KEY` y `VITE_MAPBOX_TOKEN`.
 3.  **Iniciar el servidor de desarrollo:**
     ```bash
     npm run dev

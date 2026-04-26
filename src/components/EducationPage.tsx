@@ -22,7 +22,7 @@ import { useAppStore } from '../store/useAppStore';
 type AgeRange = '6-9' | '10-12' | '13-15' | '16-17';
 
 export default function EducationPage() {
-  const { age } = useAppStore();
+  const { age, setCurrentView } = useAppStore();
   
   const getAgeRange = (ageValue: number): AgeRange => {
     if (ageValue <= 9) return '6-9';
@@ -69,9 +69,7 @@ export default function EducationPage() {
   };
 
   const startVideoSim = () => {
-    setSimType('video');
-    setSimStep(1);
-    setShowSimulation(true);
+    setCurrentView('tiktok');
   };
 
   const startChatSim = () => {

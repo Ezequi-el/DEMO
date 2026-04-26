@@ -39,6 +39,7 @@ import AlertsPage from './AlertsPage';
 import ProfilePage from './ProfilePage';
 import SettingsPage from './SettingsPage';
 import EducationPage from './EducationPage';
+import TikTokFeed from './TikTokFeed';
 
 export default function MinorDashboard() {
   const { username, currentView, setCurrentView, isLinkedToTutor, setLinkedToTutor } = useAppStore();
@@ -118,6 +119,7 @@ export default function MinorDashboard() {
       case 'profile': return <ProfilePage />;
       case 'settings': return <SettingsPage />;
       case 'education': return <EducationPage />;
+      case 'tiktok': return <TikTokFeed onBack={() => setCurrentView('home')} />;
       default: return (
         <div className="flex flex-col px-6 pt-8 pb-32 space-y-6 max-w-md mx-auto">
           {/* 1. Profile Card */}
@@ -222,6 +224,7 @@ export default function MinorDashboard() {
                 ].map((app, i) => (
                   <motion.button
                     key={i}
+                    onClick={() => app.name === 'TikTok' ? setCurrentView('tiktok') : null}
                     whileTap={app.status === 'allowed' ? { scale: 0.95 } : {}}
                     className={`relative flex flex-col items-center justify-center p-4 rounded-[1.5rem] border transition-all ${
                       app.status === 'allowed' 

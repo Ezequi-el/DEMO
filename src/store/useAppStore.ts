@@ -11,7 +11,7 @@ interface RewardRecord {
 
 interface UserState {
   role: 'minor' | 'guardian' | 'authority';
-  currentView: 'home' | 'rewards' | 'alerts' | 'profile' | 'settings' | 'education';
+  currentView: 'home' | 'rewards' | 'alerts' | 'profile' | 'settings' | 'education' | 'tiktok';
   points: number;
   streak: number;
   username: string;
@@ -25,7 +25,7 @@ interface UserState {
   setIsSigningUp: (isSigningUp: boolean) => void;
   setPoints: (points: number) => void;
   setRole: (role: 'minor' | 'guardian' | 'authority') => void;
-  setCurrentView: (view: 'home' | 'rewards' | 'alerts' | 'profile' | 'settings' | 'education') => void;
+  setCurrentView: (view: 'home' | 'rewards' | 'alerts' | 'profile' | 'settings' | 'education' | 'tiktok') => void;
   addPoints: (amount: number) => void;
   setLinkedToTutor: (isLinked: boolean) => void;
   addToInventory: (rewardRecord: RewardRecord) => void;
